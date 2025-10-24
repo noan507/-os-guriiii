@@ -1,186 +1,55 @@
-<!-- =========================
-     index.html – Sprint 2 (incremental sobre o Sprint 1)
-     Mantemos o visual/tema do Sprint 1 e adicionamos a estrutura funcional.
-     ========================= -->
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistema de Reserva de Recursos</title>
-  <link rel="stylesheet" href="style.css">
-  <!-- ALTERAÇÃO SPRINT 2: usar defer para carregar o JS sem bloquear a renderização
-       e garantir que o DOM já esteja parseado quando o script rodar. -->
-  <script defer src="script.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marketplace</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <div class="container navPrincipal">
-      <div class="marcaSistema">
-        <div class="logoSistema">&#128274;</div>
-        <h1>Sistema de Reserva de Recursos</h1>
+    <h1>Marketplace</h1>
+    <div class="actions">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Pesquisar produto..." />
+        <button id="searchBtn">🔍</button>
       </div>
-
-      <div class="acoesNav">
-        <!-- ALTERAÇÃO SPRINT 2: trocamos onclick por links-âncora para o fluxo.
-             Motivo: simplifica JS, melhora acessibilidade e permite hashchange. -->
-        <a class="botao" href="#secLogin">Entrar</a>
-        <a class="botao botaoPrimario" href="#secPesquisa">Nova Reserva</a>
-      </div>
+      <button id="loginBtn" class="login-btn">Entrar</button>
     </div>
   </header>
 
-  <main class="container">
-    <section class="secaoHero">
-      <div class="cartaoHero">
-        <span class="selo">&#129513; Entidades: Usuário • Recurso • Reserva</span>
-        <h2>Reserve recursos de forma simples e rápida</h2>
-        <p class="textoMutado">Selecione o <strong>recurso</strong>, escolha <strong>data/horário</strong> e confirme. Depois, acompanhe suas <strong>reservas</strong> na área do usuário.</p>
-
-        <!-- (Opcional) Este formulário rápido pode continuar apenas como vitrine visual.
-             ALTERAÇÃO SPRINT 2: adicionamos name="" para possível leitura via FormData,
-             mas o fluxo oficial passa pelas seções abaixo. -->
-        <form class="formRapido" data-obsoleto="true">
-          <select name="recurso">
-            <option value="">— Selecione o recurso —</option>
-            <option>Laboratório 01</option>
-            <option>Laboratório 02</option>
-            <option>Projetor 4K</option>
-            <option>Espaço de Reuniões</option>
-          </select>
-          <input class="entrada" name="data" type="date" placeholder="Data">
-          <input class="entrada" name="inicio" type="time" placeholder="Início">
-          <input class="entrada" name="fim" type="time" placeholder="Fim">
-          <button class="botao botaoPrimario" type="submit">Reservar</button>
-        </form>
-      </div>
-
-      <div class="cartaoHero">
-        <h3>Status do sistema</h3>
-        <p class="textoMutado">Ambiente <strong>DEMO</strong>. Integração real será feita após modelagem e API.</p>
-        <ul class="textoMutado">
-          <li>&#128272; Autenticação: planejada (Sprint 4–5)</li>
-          <li>&#128450; Persistência: JSON → SQLite → MySQL</li>
-          <li>&#128737; Perfis: Usuário e Administrador</li>
-        </ul>
-      </div>
+  <main>
+    <section id="add-product-section">
+      <button id="addProductBtn" class="add-btn">+ Adicionar Produto</button>
     </section>
 
-    <section class="gradeEntidades">
-      <article class="cartao">
-        <h3>Usuário</h3>
-        <p class="textoMutado">Cadastro, login e área do usuário com histórico de reservas.</p>
-      </article>
-      <article class="cartao">
-        <h3>Recurso</h3>
-        <p class="textoMutado">Catálogo administrado (salas, equipamentos). Regras de disponibilidade.</p>
-      </article>
-      <article class="cartao">
-        <h3>Reserva</h3>
-        <p class="textoMutado">Criação, edição e cancelamento com validação de conflitos.</p>
-      </article>
-    </section>
-
-    <!-- =========================
-         SEÇÕES FUNCIONAIS (Sprint 2)
-         ========================= -->
-
-    <!-- ALTERAÇÃO SPRINT 2: seção de Acesso (Login) com name="" para FormData.
-         Motivo: iniciar o fluxo e simular RN de perfil (ex.: "prof.*"). -->
-    <section id="secLogin" class="cartao" aria-labelledby="titLogin">
-      <h2 id="titLogin">Acesso</h2>
-      <form id="formLogin" class="grade">
-        <label>
-          Usuário
-          <input id="campoUsuario" name="usuario" autocomplete="username" required>
-        </label>
-        <label>
-          Senha
-          <input id="campoSenha" name="senha" type="password" autocomplete="current-password" required>
-        </label>
-        <button class="botao botaoPrimario" type="submit">Entrar</button>
-        <p class="textoMutado">Dica: qualquer usuário com senha de 3+ caracteres entra (simulação).</p>
-      </form>
-    </section>
-
-    <!-- ALTERAÇÃO SPRINT 2: seção de Pesquisa.
-         Motivo: separar consulta de disponibilidade da solicitação. -->
-    <section id="secPesquisa" class="cartao" aria-labelledby="titPesquisa">
-      <h2 id="titPesquisa">Pesquisar disponibilidade</h2>
-      <form id="formPesquisa" class="grade duas">
-        <label>
-          Recurso
-          <select id="campoRecurso" name="recurso" required>
-            <option value="">Selecione...</option>
-            <option>Laboratório 01</option>
-            <option>Laboratório 02</option>
-            <option>Projetor 4K</option>
-            <option>Espaço de Reuniões</option>
-          </select>
-        </label>
-        <label>
-          Data
-          <input id="campoData" name="data" type="date" required>
-        </label>
-        <label>
-          Horário
-          <input id="campoHora" name="hora" type="time" required>
-        </label>
-        <button class="botao botaoPrimario" type="submit">Pesquisar</button>
-      </form>
-    </section>
-
-    <!-- ALTERAÇÃO SPRINT 2: seção de Solicitação.
-         Motivo: aplicar RN simulada (professor aprova automaticamente). -->
-    <section id="secSolicitar" class="cartao" aria-labelledby="titSolicitar">
-      <h2 id="titSolicitar">Solicitar reserva</h2>
-      <form id="formSolicitar" class="grade">
-        <label>
-          Justificativa
-          <input id="campoJustificativa" name="justificativa" placeholder="Descreva o uso..." required>
-        </label>
-        <button class="botao botaoPrimario" type="submit">Solicitar</button>
-      </form>
-      <p class="textoMutado">RN4 (simulada): logins contendo “prof” recebem aprovação automática.</p>
-    </section>
-
-    <!-- ALTERAÇÃO SPRINT 2: seção de Histórico com aria-live para anunciar mudanças.
-         Motivo: acessibilidade + feedback ao usuário quando novas reservas aparecem. -->
-    <section id="secHistorico" class="cartao" aria-labelledby="titHistorico">
-      <h2 id="titHistorico">Minhas reservas</h2>
-      <ul id="listaReservas" class="lista" aria-live="polite"></ul>
-    </section>
-
-    <footer>
-      <div class="container">
-        <!-- ALTERAÇÃO SPRINT 2: texto atualizado para indicar avanço de sprint. -->
-        <small class="textoMutado">Sprint 2 · Fluxo funcional (Login → Pesquisa → Solicitação → Histórico). Próximo: modelagem e persistência.</small>
-      </div>
-    </footer>
+    <section id="product-list" class="product-list"></section>
   </main>
 
-  <!-- MANTIDO do Sprint 1: dialog de login (protótipo visual).
-       Observação SPRINT 2: o fluxo oficial usa a seção #secLogin.
-       Mantemos o dialog apenas para referência visual/UX. -->
-  <dialog id="modalLogin">
-    <div class="conteudoModal">
-      <header>
-        <h3>Entrar</h3>
-        <p class="textoMutado">Protótipo visual. Implementação de autenticação nas próximas sprints.</p>
-      </header>
-      <form method="dialog">
-        <input class="entrada" type="email" placeholder="E-mail" required>
-        <input class="entrada" type="password" placeholder="Senha" required>
-        <div style="display:flex; gap:10px; justify-content:flex-end">
-          <button class="botao" value="cancelar">Cancelar</button>
-          <button class="botao botaoPrimario" value="entrar">Entrar</button>
-        </div>
-      </form>
+  <!-- Modal de Login -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Login</h2>
+      <input type="email" id="email" placeholder="Seu Gmail" />
+      <input type="password" id="password" placeholder="Sua senha" />
+      <button id="submitLogin">Entrar</button>
     </div>
-  </dialog>
+  </div>
 
-  <!-- ALTERAÇÃO SPRINT 2: região de TOAST acessível (feedback não bloqueante).
-       role="status" + aria-live tornam as mensagens audíveis por leitores de tela. -->
-  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+  <!-- Modal de Adicionar Produto -->
+  <div id="addProductModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Novo Produto</h2>
+      <input type="text" id="productName" placeholder="Nome do produto" />
+      <input type="number" id="productPrice" placeholder="Preço" />
+      <input type="text" id="productCategory" placeholder="Categoria" />
+      <textarea id="productDesc" placeholder="Observações (opcional)"></textarea>
+      <button id="saveProduct">Adicionar</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>

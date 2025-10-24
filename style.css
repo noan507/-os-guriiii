@@ -1,0 +1,140 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: #0b0b0b;
+  color: white;
+  min-height: 100vh;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #111;
+  padding: 15px 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+  font-size: 24px;
+  color: #00aaff;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background: #1a1a1a;
+  border-radius: 6px;
+  padding: 5px;
+}
+
+.search-box input {
+  background: none;
+  border: none;
+  color: white;
+  outline: none;
+  padding: 5px;
+}
+
+.search-box button {
+  background: none;
+  border: none;
+  color: #00aaff;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.login-btn, .add-btn, #saveProduct, #submitLogin {
+  background-color: #00aaff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 15px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.login-btn:hover, .add-btn:hover {
+  background-color: #0080cc;
+}
+
+#add-product-section {
+  display: flex;
+  justify-content: flex-start;
+  padding: 20px 30px;
+}
+
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+  padding: 0 30px 50px;
+}
+
+.product-card {
+  background-color: #111;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  transition: transform 0.2s;
+  border: 1px solid #00aaff30;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+}
+
+.product-card h3 {
+  color: #00aaff;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+  background-color: #111;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+  color: white;
+}
+
+.modal-content input, .modal-content textarea {
+  width: 90%;
+  margin: 8px 0;
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  background: #1a1a1a;
+  color: white;
+}
+
+.close {
+  float: right;
+  color: #aaa;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: white;
+}
